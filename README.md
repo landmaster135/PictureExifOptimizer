@@ -39,7 +39,7 @@ cd picture_backup
         cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
         ```
 
-				- ③に対してSetting createDate from my FileModifyDate.
+	- ③に対してSetting createDate from my FileModifyDate.
         
         ```powershell
         cd ..; cd 1-1_movie_escaping; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-1_movie_escaping"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileModifyDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
