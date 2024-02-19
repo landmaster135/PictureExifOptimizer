@@ -27,16 +27,22 @@ cd picture_backup
         start powershell
         ```
         
-        - mp4ファイルなどを退避させる。
+        - mp4ファイルなどを退避させる。（③になる）
         
         ```powershell
         Move-Item -Path *.mp4 -Destination .\1-1_movie_escaping
         ```
         
-        - Setting createDate from my FileCreateDate.
+        - ②に対してSetting createDate from my FileCreateDate.
         
         ```powershell
         cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
+        ```
+
+				- ③に対してSetting createDate from my FileModifyDate.
+        
+        ```powershell
+        cd ..; cd 1-1_movie_escaping; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-1_movie_escaping"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileModifyDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
         ```
         
 
@@ -101,10 +107,16 @@ Get-ChildItem -Path . -File | ForEach-Object {
 - ①と②のjpegが合流したな。
     - 全部webpにする。
     - 全部「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
+    - ③のmp4はこのコマンドで戻せる。
+
+```powershell
+Move-Item -Path .\1-1_movie_escaping\*.mp4 -Destination .
+
+```
 
 ## Ops 4: Copying Exif info from other file.
 
-- ①と②が合流したな。
+- ①と②と③が合流したな。
 - 全部、Copying Exif info from other file.（DOSで実行する）
 
 ```batch
