@@ -33,7 +33,7 @@ cd picture_backup
         Move-Item -Path *.mp4 -Destination .\1-1_movie_escaping
         ```
         
-        - ②に対してSetting createDate from my FileCreateDate.
+      	- ②に対してSetting createDate from my FileCreateDate.
         
         ```powershell
         cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
