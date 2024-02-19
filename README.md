@@ -68,7 +68,7 @@ cd ..
 - 数字重複エラーでリネーム出来なかったやつに対して自動採番リネームを行う。
 
 ```powershell
-**$number = 1
+$number = 1
 $date_formatted = Get-Date -Format "yyyyMMddHH"
 $date_formatted = Get-Date -Format "yyyyMMddH"
 $year_this = Get-Date -UFormat "%Y"
@@ -92,7 +92,7 @@ Get-ChildItem -Path . -File | ForEach-Object {
   }else{
 		Write-Host $_.GetType() "false" $_.Name
 	}
-}**
+}
 
 ```
 
