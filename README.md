@@ -19,9 +19,9 @@ cd picture_backup
 ```
 
 - 自分のスマホで撮ったファイル（①）とそれ以外（②）に分ける
-    - ①は、「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
-    - ②のオペレーション
-        - ②は、「`C:\Users\${username}\Downloads\picture_backup\1-2_create_date_setting`」に入れる。
+	- ①は、「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
+	- ②のオペレーション
+			- ②は、「`C:\Users\${username}\Downloads\picture_backup\1-2_create_date_setting`」に入れる。
         
         ```batch
         start powershell
@@ -36,10 +36,10 @@ cd picture_backup
       	- ②に対してSetting createDate from my FileCreateDate.
         
         ```powershell
-        cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
+        cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; 				$proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
         ```
 
-	- ③に対してSetting createDate from my FileModifyDate.
+		- ③に対してSetting createDate from my FileModifyDate.
         
         ```powershell
         cd ..; cd 1-1_movie_escaping; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-1_movie_escaping"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileModifyDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
