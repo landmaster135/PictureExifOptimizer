@@ -107,7 +107,7 @@ Get-ChildItem -Path . -File | ForEach-Object {
 - ①と②が合流したな。
 - 全部、Copying Exif info from other file.（DOSで実行する）
 
-```powershell
+```batch
 START /WAIT powershell -Command "Get-ChildItem *.webp | ForEach-Object {$jpg = $_.BaseName + \".jpg\"; if (Test-Path $jpg) {$webpFilePath = $_.FullName; Start-Process -FilePath exiftool.exe -ArgumentList \"-tagsFromFile\",$jpg,\"-exif:all\",$webpFilePath -NoNewWindow -Wait}}"
 ```
 
@@ -130,3 +130,10 @@ Move-Item -Path .\*.png -Destination .\5_original_files;
 ```powershell
 exiftool -s .\img.webp
 ```
+
+#Change Log
+
+| Date | Topics |
+| :--- | :---: |
+| 2024-02-20 | Initial commit. |
+| |  |
