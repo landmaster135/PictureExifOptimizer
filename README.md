@@ -8,9 +8,9 @@
 
 ## Ops 1: Ready.
 
-- 事前準備
+### 事前準備
 
-```batch
+```powershell
 cd C:\Users\%username%\Downloads
 
 mkdir picture_backup & mkdir picture_backup\1-2_create_date_setting & mkdir picture_backup\5_original_files
@@ -18,37 +18,45 @@ cd picture_backup
 
 ```
 
-- 自分のスマホで撮ったファイル（①）とそれ以外（②）に分ける
-	- ①は、「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
-	- ②のオペレーション
-			- ②は、「`C:\Users\${username}\Downloads\picture_backup\1-2_create_date_setting`」に入れる。
-        
-        ```batch
-        start powershell
-        ```
-        
-        - mp4ファイルなどを退避させる。（③になる）
-        
-        ```powershell
-        Move-Item -Path *.mp4 -Destination .\1-1_movie_escaping
-        ```
-        
-      	- ②に対してSetting createDate from my FileCreateDate.
-        
-        ```powershell
-        cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; 				$proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
-        ```
+### 自分のスマホで撮ったファイル（①）とそれ以外（②）に分ける
 
-		- ③に対してSetting createDate from my FileModifyDate.
-        
-        ```powershell
-        cd ..; cd 1-1_movie_escaping; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-1_movie_escaping"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileModifyDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
-        ```
-        
+- ①は、「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
+
+### ②のオペレーション
+
+- ②は、「`C:\Users\${username}\Downloads\picture_backup\1-2_create_date_setting`」に入れる。
+
+```
+start powershell
+```
+
+- mp4ファイルなどを退避させる。（③になる）
+
+```powershell
+Move-Item -Path *.mp4 -Destination .\1-1_movie_escaping
+```
+
+- ②に対してSetting createDate from my FileCreateDate.
+
+```powershell
+cd 1-2_create_date_setting; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-2_create_date_setting"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileCreateDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
+```
+
+- ③に対してSetting createDate from my FileModifyDate.
+
+```powershell
+cd ..; cd 1-1_movie_escaping; $username = (Get-ChildItem Env:\USERNAME).Value; $toCreateDateDir = "1-1_movie_escaping"; $folderDir = "C:\Users\${username}\Downloads\picture_backup\${toCreateDateDir}"; $proc = Start-Process -FilePath "${folderDir}\exiftool" -ArgumentList "-CreateDate<FileModifyDate","-d","%Y:%m:%d:%H:%M:%S",$folderDir -NoNewWindow -PassThru -wait; Write-Host $proc.ExitCode;
+```
 
 ## Ops 2: Renaming file from its Exif createDate.
 
-- ①の画像ファイルを、Renaming file from its Exif createDate.
+### ③のmp4はこのコマンドで戻せる。
+
+```powershell
+Move-Item -Path .\*.mp4 -Destination ..;
+```
+
+### ①の画像ファイルと③の動画ファイルを、Renaming file from its Exif createDate.
 
 ```powershell
 cd ..
@@ -57,13 +65,13 @@ cd .\1-2_create_date_setting
 
 ```
 
-- ②のjpegを「`C:\Users\${username}\Downloads\picture_backup`」に移動する。
+### ②のjpegを「`C:\Users\${username}\Downloads\picture_backup`」に移動する。
 
 ```powershell
 Move-Item -Path *.jpg -Destination ..;
 ```
 
-- ②のwebpを「`C:\Users\${username}\Downloads\picture_backup`」に移動する。
+### ②のwebpを「`C:\Users\${username}\Downloads\picture_backup`」に移動する。
 
 ```powershell
 Move-Item -Path *.webp -Destination ..;
@@ -71,10 +79,10 @@ cd ..
 
 ```
 
-- 数字重複エラーでリネーム出来なかったやつに対して自動採番リネームを行う。
+### 数字重複エラーでリネーム出来なかったやつに対して自動採番リネームを行う。
 
 ```powershell
-$number = 1
+**$number = 1
 $date_formatted = Get-Date -Format "yyyyMMddHH"
 $date_formatted = Get-Date -Format "yyyyMMddH"
 $year_this = Get-Date -UFormat "%Y"
@@ -98,28 +106,24 @@ Get-ChildItem -Path . -File | ForEach-Object {
   }else{
 		Write-Host $_.GetType() "false" $_.Name
 	}
-}
+}**
 
 ```
 
 ## Ops 3: Converting JPEG to WEBP.
 
-- ①と②のjpegが合流したな。
-    - 全部webpにする。
-    - 全部「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
-    - ③のmp4はこのコマンドで戻せる。
+### ①と②のjpegと③が合流したな。
 
-```powershell
-Move-Item -Path .\1-1_movie_escaping\*.mp4 -Destination .
-
-```
+- 全部webpにする。
+- 全部「`C:\Users\${username}\Downloads\picture_backup`」に入れる。
 
 ## Ops 4: Copying Exif info from other file.
 
-- ①と②と③が合流したな。
+### ①と②と③が合流したな。
+
 - 全部、Copying Exif info from other file.（DOSで実行する）
 
-```batch
+```powershell
 START /WAIT powershell -Command "Get-ChildItem *.webp | ForEach-Object {$jpg = $_.BaseName + \".jpg\"; if (Test-Path $jpg) {$webpFilePath = $_.FullName; Start-Process -FilePath exiftool.exe -ArgumentList \"-tagsFromFile\",$jpg,\"-exif:all\",$webpFilePath -NoNewWindow -Wait}}"
 ```
 
@@ -137,7 +141,8 @@ Move-Item -Path .\*.png -Destination .\5_original_files;
 ## Ops 6: Upload to Google Photos !!
 
 - 全部、Googleフォトにアップロードして終わり。アルバムに振り分ける。
-- 予備のコマンド
+
+### 予備のコマンド
 
 ```powershell
 exiftool -s .\img.webp
