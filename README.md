@@ -122,7 +122,7 @@ Move-Item -Path .\*.png -Destination .\5_original_files;
 
 ```
 
-## Ops 6:
+## Ops 6: Upload to Google Photos !!
 
 - 全部、Googleフォトにアップロードして終わり。アルバムに振り分ける。
 - 予備のコマンド
