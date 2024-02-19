@@ -1,0 +1,1 @@
+START /WAIT powershell -Command "Get-ChildItem *.webp | ForEach-Object {$jpg = $_.BaseName + \".jpg\"; if (Test-Path $jpg) {$webpFilePath = $_.FullName; Start-Process -FilePath exiftool.exe -ArgumentList \"-tagsFromFile\",$jpg,\"-exif:all\",$webpFilePath -NoNewWindow -Wait}}"
