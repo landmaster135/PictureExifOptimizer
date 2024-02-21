@@ -4,7 +4,7 @@
 
 - [ExifTool](https://exiftool.org/)
 
-# Directory
+# Directory to work
 
 ```
 C:.
@@ -19,7 +19,7 @@ C:.
 └─5_original_files
 ```
 
-# Workflow of Product
+# Workflow of product
 
 ## Ops 1: Ready.
 
@@ -163,7 +163,7 @@ Move-Item -Path .\*.png -Destination .\5_original_files;
 exiftool -s .\img.webp
 ```
 
-#Change Log
+# Change log
 
 | Date | Topics |
 | :--- | :---: |
