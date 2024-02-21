@@ -6,6 +6,7 @@
 
 # Directory
 
+```
 C:.
 │  exiftool.exe
 │
@@ -16,6 +17,7 @@ C:.
 │      exiftool.exe
 │
 └─5_original_files
+```
 
 # Workflow of Product
 
