@@ -4,6 +4,19 @@
 
 - [ExifTool](https://exiftool.org/)
 
+# Directory
+
+C:.
+│  exiftool.exe
+│
+├─1-1_movie_escaping
+│      exiftool.exe
+│
+├─1-2_create_date_setting
+│      exiftool.exe
+│
+└─5_original_files
+
 # Workflow of Product
 
 ## Ops 1: Ready.
